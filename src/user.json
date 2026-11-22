@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Mehedi Hasan",
+    "email": "mehedi@example.com",
+    "role": "admin",
+    "createdAt": "2026-11-22T10:30:00.000Z"
+  },
+  {
+    "name": "Rahim Ahmed",
+    "email": "rahim@example.com",
+    "role": "user",
+    "createdAt": "2026-11-21T08:15:00.000Z"
+  },
+  {
+    "name": "Sadia Islam",
+    "email": "sadia@example.com",
+    "role": "moderator",
+    "createdAt": "2026-11-20T14:45:00.000Z"
+  },
+  {
+    "name": "Tanvir Hossain",
+    "email": "tanvir@example.com",
+    "role": "user",
+    "createdAt": "2026-11-19T11:20:00.000Z"
+  },
+  {
+    "name": "Nusrat Jahan",
+    "email": "nusrat@example.com",
+    "role": "admin",
+    "createdAt": "2026-11-18T09:00:00.000Z"
+  }
+]
