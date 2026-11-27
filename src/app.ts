@@ -1,8 +1,7 @@
 import http from "node:http";
 import { randomUUID } from "node:crypto";
-import { readFile, writeFile } from "node:fs/promises";
+import fs, { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-
 interface User {
   id?: string | number;
   name: string;
@@ -150,7 +149,42 @@ const userServer = http.createServer(async (req, res) => {
         }),
       );
     }
-  } else if (req.method === "DELETE" && req.url === "/delete-users") {
+  } else if (req.method === "DELETE" && req.url?.startsWith("/delete-users/")) {
+    try {
+      const id = req.url.split("/")[2];
+
+      const users = await getUsers();
+
+      const userIndex = (await users).findIndex((user) => user.id === id);
+
+      if (userIndex === -1) {
+        res.writeHead(404);
+        return res.end(
+          JSON.stringify({
+            message: "user not found",
+          }),
+        );
+      }
+      (await users).splice(userIndex, 1);
+      fs.writeFile(FILE_PATH, JSON.stringify(users, null, 2));
+
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          message: "user deleted successfully",
+          success: true,
+        }),
+      );
+    } catch (error: any) {
+      console.error(error);
+      res.writeHead(500);
+      return res.end(
+        JSON.stringify({
+          message: "update to fail user",
+          data: error.message,
+        }),
+      );
+    }
   } else {
     res.writeHead(500);
     res.end(JSON.stringify({ message: "method or url not found" }));
